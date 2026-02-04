@@ -4,6 +4,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import RegisterSerializer
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
+from auth.serializers import LoginSerializer
+
 
 class RegisterViewSet(ViewSet):
     serializer_class = RegisterSerializer
@@ -24,3 +27,16 @@ class RegisterViewSet(ViewSet):
             "refresh": res["refresh"],
             "token": res["access"]
         }, status=status.HTTP_201_CREATED)
+
+class LoginViewSet(ViewSet):
+    serializer_class = LoginSerializer
+    permission_classes = (AllowAny,)
+    http_method_names = ['post']
+    
+    def create(self, request, *arfgs, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
