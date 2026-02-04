@@ -1,6 +1,6 @@
 Star Wars API
 
-frameworks:  django, django restframework. database: sqlite
+frameworks:  django, django restframework. database: postgresql
 
 # Endpoints
 
@@ -14,6 +14,8 @@ frameworks:  django, django restframework. database: sqlite
 *  Starships By ID:  http://localhost:8000/api/starships/id/
 * Vehicles:  http://localhost:8000/api/vehicles/
 * Vehicles By ID:  http://localhost:8000/api/vehicles/id/
+
+is necessary create an .env file with django secret key and database name, user, password, and host
 
 commands:
 
