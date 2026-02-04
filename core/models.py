@@ -34,6 +34,24 @@ class Transport(models.Model):
     def __str__(self):
         return self.name
 
+class Film(models.Model):
+    title = models.CharField(max_length=300)
+    episode_id=models.IntegerField()
+    opening_crawl = models.TextField()
+    director=models.CharField(max_length=300)
+    producer=models.CharField(max_length=300)
+    release_date=models.DateTimeField()
+    characters = models.URLField(max_length=4000)  
+    planets =models.URLField(max_length=1000)  
+    starships = models.URLField(max_length=1000)        
+    vehicles = models.URLField(max_length=1000)  
+    species = models.URLField(max_length=1000)  
+    created=models.DateTimeField()
+    edited = models.DateTimeField()                   
+    url = models.URLField(max_length=1000)     
+
+    def __str__(self):
+        return self.title  
 
 class People(models.Model):
     
@@ -81,26 +99,6 @@ class Starship(Transport):
     MGLT = models.CharField(max_length=100)
     starship_class = models.CharField(max_length=100)
     pilots =  models.URLField(max_length=1000) 
-
-class Film(models.Model):
-    title = models.CharField(max_length=300)
-    episode_id=models.IntegerField()
-    opening_crawl = models.TextField()
-    director=models.CharField(max_length=300)
-    producer=models.CharField(max_length=300)
-    release_date=models.DateTimeField()
-    characters = models.URLField(max_length=4000)  
-    planets =models.URLField(max_length=1000)  
-    starships = models.URLField(max_length=1000)        
-    vehicles = models.URLField(max_length=1000)  
-    species = models.URLField(max_length=1000)  
-    created=models.DateTimeField()
-    edited = models.DateTimeField()                   
-    url = models.URLField(max_length=1000)            
-    
-
-    def __str__(self):
-        return self.title  
 
 
 

@@ -1,7 +1,8 @@
 import requests
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import People, Film, Planet, Starship, Vehicle, Species
 from .serializers import PeopleSerializer, FilmSerializer, PlanetSerializer, StarshipSerializer, VehicleSerializer, SpeciesSerializer
 
@@ -14,6 +15,8 @@ class PeopleViewSet(viewsets.ReadOnlyModelViewSet):
       
     http_method_names = ('get')    
     serializer_class = PeopleSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=name', '=hair_color']
 
     def get_queryset(self):
         queryset = People.objects.all()
@@ -31,6 +34,8 @@ class FilmViewSet(viewsets.ReadOnlyModelViewSet):
       
     http_method_names = ('get')    
     serializer_class = FilmSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=title', '=episode_id']
 
     def get_queryset(self):
         queryset = Film.objects.all()
@@ -48,6 +53,8 @@ class PlanetViewSet(viewsets.ReadOnlyModelViewSet):
       
     http_method_names = ('get')    
     serializer_class = PlanetSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'climate']
 
     def get_queryset(self):
         queryset = Planet.objects.all()
@@ -67,6 +74,8 @@ class StarshipViewSet(viewsets.ReadOnlyModelViewSet):
       
     http_method_names = ('get')    
     serializer_class = StarshipSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['starship_class']
 
     def get_queryset(self):
         queryset = Starship.objects.all()

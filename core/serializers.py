@@ -18,7 +18,7 @@ class PeopleSerializer(serializers.ModelSerializer):
         model = People
         fields = [
             'name', 'height', 'mass', 'hair_color', 
-            'skin_color', 'eye_color', 'birth_year', 
+            'skin_color', 'eye_color', 'birth_year',
             'gender', 'homeworld', 'films', 'url',            
         ]   
 

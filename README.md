@@ -6,6 +6,7 @@ frameworks:  django, django restframework. database: postgresql
 
 * People: http://localhost:8000/api/people/ http methods: get
 * People By ID:  http://localhost:8000/api/people/id/
+* Search people ex http://127.0.0.1:8000/api/people/?blond 
 * Films: http://localhost:8000/api/films/ http methods: get
 * Films By ID:  http://localhost:8000/api/films/id/
 * Planets:  http://localhost:8000/api/planets/ http methods: get

@@ -137,11 +137,11 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(' starships data imported'))
     
     def handle(self, *args, **options):
-        #self.get_characters()
-        #self.get_films()
+        self.get_characters()
+        self.get_films()
         #self.get_planets()
         #self.get_starships()
-        self.get_vehicles()
+        #self.get_vehicles()
         #self.get_species()
         
         self.stdout.write(self.style.SUCCESS('finish import'))
