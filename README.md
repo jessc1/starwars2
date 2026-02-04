@@ -19,6 +19,7 @@ frameworks:  django, django restframework. database: postgresql
 
 is necessary create an .env file with django secret key and database name, user, password, and host
 
+
 commands:
 
 initialize the uv 

@@ -5,8 +5,21 @@ from rest_framework.decorators import action
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import People, Film, Planet, Starship, Vehicle, Species
-from .serializers import PeopleSerializer, FilmSerializer, PlanetSerializer, StarshipSerializer, VehicleSerializer, SpeciesSerializer
+from .models import People, Film, Planet, Starship, Vehicle, Species, User
+from .serializers import PeopleSerializer, FilmSerializer, PlanetSerializer, StarshipSerializer, VehicleSerializer, SpeciesSerializer, UserSerializer
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    http_method_names = ('get')
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        return queryset
+    
+    def get_object_by_id(self):
+        obj = User.objects.get(self.kwargs['pk'])
+        self.check_object_permissions(self.request, obj)
+        return obj
 
 
 
