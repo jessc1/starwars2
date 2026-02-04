@@ -2,6 +2,8 @@ import requests
 from rest_framework import viewsets, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import People, Film, Planet, Starship, Vehicle, Species
 from .serializers import PeopleSerializer, FilmSerializer, PlanetSerializer, StarshipSerializer, VehicleSerializer, SpeciesSerializer
@@ -16,7 +18,9 @@ class PeopleViewSet(viewsets.ReadOnlyModelViewSet):
     http_method_names = ('get')    
     serializer_class = PeopleSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['=name', '=hair_color']
+    permission_classes = [IsAuthenticated]
+
+    search_fields = ['name', 'hair_color']
 
     def get_queryset(self):
         queryset = People.objects.all()
@@ -35,7 +39,9 @@ class FilmViewSet(viewsets.ReadOnlyModelViewSet):
     http_method_names = ('get')    
     serializer_class = FilmSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['=title', '=episode_id']
+    search_fields = ['title', 'episode_id']
+    permission_classes = [IsAuthenticated]
+
 
     def get_queryset(self):
         queryset = Film.objects.all()
@@ -55,6 +61,8 @@ class PlanetViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PlanetSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['name', 'climate']
+    permission_classes = [IsAuthenticated]
+
 
     def get_queryset(self):
         queryset = Planet.objects.all()
@@ -76,6 +84,8 @@ class StarshipViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = StarshipSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['starship_class']
+    permission_classes = [IsAuthenticated]
+
 
     def get_queryset(self):
         queryset = Starship.objects.all()
@@ -94,6 +104,8 @@ class VehicleViewSet(viewsets.ReadOnlyModelViewSet):
       
     http_method_names = ('get')    
     serializer_class = VehicleSerializer
+    permission_classes = [IsAuthenticated]
+
 
     def get_queryset(self):
         queryset = Vehicle.objects.all()
@@ -111,6 +123,8 @@ class SpeciesViewSet(viewsets.ReadOnlyModelViewSet):
       
     http_method_names = ('get')    
     serializer_class = SpeciesSerializer
+    permission_classes = [IsAuthenticated]
+
 
     def get_queryset(self):
         queryset = Species.objects.all()

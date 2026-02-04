@@ -77,7 +77,7 @@ class People(models.Model):
 
 class Vehicle(Transport):
     vehicle_class = models.CharField(max_length=200)
-    pilots = models.URLField(max_length=1000, default='pilots')
+    
 
 class Species(models.Model):
     name = models.CharField(max_length=100)
