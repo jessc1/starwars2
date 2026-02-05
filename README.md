@@ -49,3 +49,8 @@ to populate the api with star wars data
 ```
  uv run --env-file .env  python manage.py starwars_data 
 ```
+
+tests
+```
+ uv run --env-file .env  python manage.py pytest
+```
