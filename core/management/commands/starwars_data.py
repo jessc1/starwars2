@@ -1,6 +1,8 @@
 import requests
 from django.core.management.base import BaseCommand
-from core.models import People, Film, Planet, Vehicle, Species, Starship
+
+from core.models import Film, People, Planet, Species, Starship, Vehicle
+
 
 class Command(BaseCommand):
     help = 'Imports Star Wars data from SWAPI'

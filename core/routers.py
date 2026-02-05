@@ -1,6 +1,7 @@
 from rest_framework import routers
-from .viewsets import PeopleViewSet, FilmViewSet, PlanetViewSet, StarshipViewSet, VehicleViewSet, SpeciesViewSet
 
+from .viewsets import (FilmViewSet, PeopleViewSet, PlanetViewSet,
+                       SpeciesViewSet, StarshipViewSet, VehicleViewSet)
 
 router = routers.SimpleRouter()
 

@@ -1,22 +1,24 @@
-from rest_framework import serializers
-from core.serializers import UserSerializer
-from core.models import User
+from django.contrib.auth.models import update_last_login
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.settings import api_settings
-from django.contrib.auth.models import update_last_login
+
+from core.models import User
+from core.serializers import UserSerializer
 
 
 class RegisterSerializer(UserSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username','password']
+        fields = ['id', 'username', 'password']
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
 
+
 class LoginSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs):
-        data = super().validate(attrs)        
+
+    def validate(self, attrs):        
+        data = super().validate(attrs)
         refresh = self.get_token(self.user)
         data['user'] = UserSerializer(self.user).data
         data['refresh'] = str(refresh)

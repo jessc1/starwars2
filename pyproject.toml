@@ -9,6 +9,10 @@ dependencies = [
     "django-filter>=25.2",
     "djangorestframework>=3.16.1",
     "djangorestframework-simplejwt>=5.5.1",
+    "drf-yasg>=1.21.14",
+    "flake8>=7.3.0",
+    "flake8-pyproject>=1.2.4",
+    "isort>=7.0.0",
     "psycopg2-binary>=2.9.11",
     "pytest>=9.0.2",
     "pytest-django>=4.11.1",
@@ -19,3 +23,22 @@ dependencies = [
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "starwars.settings"
 python_files = ["test_*.py","*tests.py"]
+
+[tool.isort]
+known_first_party = ["starwars", "core"]
+skip_glob = "env/*"
+extend_skip_glob = "**/migrations/*"
+
+[tool.flake8]
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv/*",
+    "build",
+    "dist",
+    "**/migrations/*"
+]
+extend-ignore = [
+    "E203",  
+    "W504" 
+]

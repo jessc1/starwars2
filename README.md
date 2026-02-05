@@ -4,6 +4,9 @@ frameworks:  django, django restframework. database: postgresql
 
 # Endpoints
 
+* Register http://127.0.0.1:8000/api/auth/register/ http methods: post with username and password
+* Loging http://127.0.0.1:8000/api/auth/login/ http methods: post with username, password and token
+* Logout http://127.0.0.1:8000/api/auth/logout/ http methods: post with username and password and token
 * People: http://localhost:8000/api/people/ http methods: get
 * People By ID:  http://localhost:8000/api/people/id/
 * Search people ex http://127.0.0.1:8000/api/people/?blond 

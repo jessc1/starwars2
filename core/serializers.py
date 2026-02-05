@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import People, Film, Planet, Starship, Vehicle, Species, User
+
+from .models import Film, People, Planet, Species, Starship, User, Vehicle
+
 
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(label="User ID", read_only=True)    
@@ -19,7 +21,8 @@ class FilmSerializer(serializers.ModelSerializer):
                   'release_date', 'characters', 'url']
 
 
-class PeopleSerializer(serializers.ModelSerializer):    
+class PeopleSerializer(serializers.ModelSerializer):
+    num_films = serializers.SerializerMethodField()
     
     class Meta:
                 
@@ -28,7 +31,10 @@ class PeopleSerializer(serializers.ModelSerializer):
             'name', 'height', 'mass', 'hair_color', 
             'skin_color', 'eye_color', 'birth_year',
             'gender', 'homeworld', 'films', 'url',            
-        ]   
+        ]
+    def get_num_films(self, obj):
+        return len(obj.films)
+   
 
 
 

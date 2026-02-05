@@ -1,12 +1,16 @@
 import requests
-from rest_framework import viewsets, filters
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework.authentication import BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import People, Film, Planet, Starship, Vehicle, Species, User
-from .serializers import PeopleSerializer, FilmSerializer, PlanetSerializer, StarshipSerializer, VehicleSerializer, SpeciesSerializer, UserSerializer
+from rest_framework import filters, viewsets
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+from .models import Film, People, Planet, Species, Starship, User, Vehicle
+from .serializers import (FilmSerializer, PeopleSerializer, PlanetSerializer,
+                          SpeciesSerializer, StarshipSerializer,
+                          UserSerializer, VehicleSerializer)
+
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     http_method_names = ('get')
@@ -103,7 +107,7 @@ class StarshipViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = Starship.objects.all()
         return queryset
-    
+
     def get_object_by_id(self):
         obj = Starship.objects.get(self.kwargs['pk'])
         self.check_object_permissions(self.request, obj)
@@ -118,6 +122,8 @@ class VehicleViewSet(viewsets.ReadOnlyModelViewSet):
     http_method_names = ('get')    
     serializer_class = VehicleSerializer
     permission_classes = [IsAuthenticated]
+    search_fields = ['vehicle_class']
+
 
 
     def get_queryset(self):
@@ -128,6 +134,7 @@ class VehicleViewSet(viewsets.ReadOnlyModelViewSet):
         obj = Vehicle.objects.get(self.kwargs['pk'])
         self.check_object_permissions(self.request, obj)
         return obj
+
 
 class SpeciesViewSet(viewsets.ReadOnlyModelViewSet):
     """
