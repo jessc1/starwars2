@@ -141,11 +141,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.get_characters()
         self.get_films()
-        #self.get_planets()
-        #self.get_starships()
-        #self.get_vehicles()
-        #self.get_species()
-        
+        self.get_planets()
+        self.get_starships()
+        self.get_vehicles()
+        self.get_species()        
         self.stdout.write(self.style.SUCCESS('finish import'))
 
 
