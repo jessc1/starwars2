@@ -5,7 +5,9 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
+from django.core.cache import cache
+from services.people_services import PeopleService
+from services.films_services import FilmsService
 from .models import Film, People, Planet, Species, Starship, User, Vehicle
 from .serializers import (FilmSerializer, PeopleSerializer, PlanetSerializer,
                           SpeciesSerializer, StarshipSerializer,
@@ -26,7 +28,6 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         return obj
 
 
-
 class PeopleViewSet(viewsets.ReadOnlyModelViewSet):
     """
     ViewSet for listing and retrieving, search and filter characters
@@ -36,11 +37,14 @@ class PeopleViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleSerializer
     filter_backends = [filters.SearchFilter]
     permission_classes = [IsAuthenticated]
-
     search_fields = ['name', 'hair_color']
+    ordering = ['name']
 
     def get_queryset(self):
-        queryset = People.objects.all()
+        queryset = cache.get('people_objects')
+        if not queryset:
+            queryset = PeopleService.list()          
+            cache.set('people_objects', queryset)
         return queryset
     
     def get_object_by_id(self):
@@ -58,10 +62,13 @@ class FilmViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['title', 'episode_id']
     permission_classes = [IsAuthenticated]
-
+    ordering = ['title']
 
     def get_queryset(self):
-        queryset = Film.objects.all()
+        queryset = cache.get('film_objects')
+        if not queryset:
+            queryset = FilmsService.list()          
+            cache.set('film_objects', queryset)
         return queryset
     
     def get_object_by_id(self):

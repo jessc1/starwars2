@@ -22,8 +22,7 @@ class FilmSerializer(serializers.ModelSerializer):
 
 
 class PeopleSerializer(serializers.ModelSerializer):
-    num_films = serializers.SerializerMethodField()
-    
+
     class Meta:
                 
         model = People
@@ -31,11 +30,7 @@ class PeopleSerializer(serializers.ModelSerializer):
             'name', 'height', 'mass', 'hair_color', 
             'skin_color', 'eye_color', 'birth_year',
             'gender', 'homeworld', 'films', 'url',            
-        ]
-    def get_num_films(self, obj):
-        return len(obj.films)
-   
-
+        ] 
 
 
 class PlanetSerializer(serializers.ModelSerializer):

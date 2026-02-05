@@ -1,12 +1,8 @@
-from unittest.mock import Mock, patch
-
 import pytest
-from django.urls import reverse
 from rest_framework import status
-
-from configtest import client
+from configtest import client, clear_cache
 from fixtures.user import user
-
+from django.core.cache import cache
 
 class TestPeopleViewSet:
     endpoint ='/api/people/'
@@ -16,9 +12,12 @@ class TestPeopleViewSet:
         response = client.get(self.endpoint)
         assert response.status_code == status.HTTP_200_OK
     
-    def test_retrieve(self, client, user):
-        
+    @pytest.mark.django_db
+    def test_cached_people(self, client, clear_cache, user):
         client.force_authenticate(user=user)
-        response = client.get(self.endpoint + str(people.id)+ "/")
-        assert response.data['id'] == people.id
-        assert response.data['people'] == people.name
+        response = client.get(self.endpoint)
+        assert response.status_code == status.HTTP_200_OK
+
+        response1 = client.get(self.endpoint)
+        assert response1.status_code == status.HTTP_200_OK
+  

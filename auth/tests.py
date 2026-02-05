@@ -1,5 +1,6 @@
 import pytest
 from rest_framework import status
+from fixtures.user import user
 
 
 class TestAuthenticationViewSet:
