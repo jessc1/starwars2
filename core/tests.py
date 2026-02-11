@@ -1,8 +1,10 @@
 import pytest
-from rest_framework import status
-from configtest import client, clear_cache
-from fixtures.user import user
 from django.core.cache import cache
+from rest_framework import status
+
+from configtest import clear_cache, client
+from fixtures.user import user
+
 
 class TestPeopleViewSet:
     endpoint ='/api/people/'

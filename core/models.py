@@ -44,7 +44,7 @@ class Transport(models.Model):
 
     def __str__(self):
         return self.name
-
+        
 
 class Film(models.Model):
     title = models.CharField(max_length=300)
@@ -53,9 +53,9 @@ class Film(models.Model):
     director=models.CharField(max_length=300)
     producer=models.CharField(max_length=300)
     release_date=models.DateTimeField()
-    characters = models.URLField(max_length=4000)  
+    characters = models.URLField(max_length=4000, default='characters')  
     planets =models.URLField(max_length=1000)  
-    starships = models.URLField(max_length=1000)        
+    starships = models.URLField(max_length=1000)
     vehicles = models.URLField(max_length=1000)  
     species = models.URLField(max_length=1000)  
     created=models.DateTimeField()
@@ -63,7 +63,7 @@ class Film(models.Model):
     url = models.URLField(max_length=1000)     
 
     def __str__(self):
-        return self.title  
+        return self.title 
 
 class People(models.Model):
     
@@ -75,8 +75,8 @@ class People(models.Model):
     eye_color = models.CharField(max_length=100, blank=True)
     birth_year = models.CharField(max_length=100, blank=True)
     gender = models.CharField(max_length=100, blank=True)
-    homeworld = models.URLField(max_length=1000, default='homeworld')    
-    films = models.URLField(max_length=1000, default='films') 
+    homeworld = models.URLField(max_length=1000, default='homeworld')
+    films= models.ManyToManyField(Film, related_name='films_character')    
     species = models.URLField(max_length=1000,default='species')
     vehicles = models.URLField(max_length=1000, default='vehicle')
     starships = models.URLField(max_length=1000, default='starship')
@@ -85,6 +85,10 @@ class People(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def num_films(self):
+        return len(self.films.all())
 
 
 class Vehicle(Transport):

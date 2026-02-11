@@ -11,8 +11,8 @@ class Command(BaseCommand):
         url = 'https://swapi.dev/api/people/'
         while url:
             response = requests.get(url).json()
-            for person in response['results']:
-                People.objects.get_or_create(
+            for person in response['results']:                
+                people, created = People.objects.get_or_create(
                     name=person['name'],
                     mass = person['mass'],
                     height= person['height'],
@@ -23,9 +23,15 @@ class Command(BaseCommand):
                     gender=person['gender'],
                     homeworld = person['homeworld'],                    
                     created = person['created'],
-                    films = person['films'],
-                    url = person['url'],    
+                    url = person['url'],              
+                
                 )
+                for film_url in person['films']:
+                    film_id = int(film_url.strip('/').split('/')[-1])
+                    film, _ = Film.objects.get_or_create(id=film_id, defaults={'title':'Unknown'})
+                    people.films.add(film)
+                    print(people.films.all())
+
             url = response['next']
         self.stdout.write(self.style.SUCCESS('characters data imported'))
     
@@ -139,12 +145,12 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(' starships data imported'))
     
     def handle(self, *args, **options):
-        self.get_characters()
         self.get_films()
-        self.get_planets()
-        self.get_starships()
-        self.get_vehicles()
-        self.get_species()        
+        self.get_characters()
+        #self.get_planets()
+        #self.get_starships()
+        #self.get_vehicles()
+        #self.get_species()        
         self.stdout.write(self.style.SUCCESS('finish import'))
 
 

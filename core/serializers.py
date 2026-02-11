@@ -13,15 +13,22 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class FilmSerializer(serializers.ModelSerializer):
+    films_george_lucas = serializers.SerializerMethodField()
  
     class Meta:
         model = Film
         fields = [
             'title', 'episode_id', 'director', 
-                  'release_date', 'characters', 'url']
+                  'release_date', 'characters', 'films_george_lucas', 'url']
+
 
 
 class PeopleSerializer(serializers.ModelSerializer):
+    films = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='url')
+    
 
     class Meta:
                 
@@ -29,8 +36,8 @@ class PeopleSerializer(serializers.ModelSerializer):
         fields = [
             'name', 'height', 'mass', 'hair_color', 
             'skin_color', 'eye_color', 'birth_year',
-            'gender', 'homeworld', 'films', 'url',            
-        ] 
+            'gender', 'homeworld', 'num_films','films', 'url',            
+        ]    
 
 
 class PlanetSerializer(serializers.ModelSerializer):

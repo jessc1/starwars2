@@ -1,13 +1,15 @@
 import requests
+from django.core.cache import cache
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from django.core.cache import cache
-from services.people_services import PeopleService
+
 from services.films_services import FilmsService
+from services.people_services import PeopleService
+
 from .models import Film, People, Planet, Species, Starship, User, Vehicle
 from .serializers import (FilmSerializer, PeopleSerializer, PlanetSerializer,
                           SpeciesSerializer, StarshipSerializer,
