@@ -88,8 +88,7 @@ class People(models.Model):
 
     @property
     def num_films(self):
-        return len(self.films.all())
-
+        return len(self.films.all()) 
 
 class Vehicle(Transport):
     vehicle_class = models.CharField(max_length=200)

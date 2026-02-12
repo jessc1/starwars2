@@ -54,6 +54,13 @@ class PeopleViewSet(viewsets.ReadOnlyModelViewSet):
         self.check_object_permissions(self.request, obj)
         return obj
 
+    @action(detail=False, methods=['get'])
+    def tallest(self, request):
+        character = PeopleService.get_tallest_character()
+        serializer = self.get_serializer(character)
+        return Response(serializer.data)   
+   
+
 class FilmViewSet(viewsets.ReadOnlyModelViewSet):
     """
     ViewSet for listing and retrieving, search and filter movies
