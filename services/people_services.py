@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
-from django.db.models import IntegerField, Max, Q
+from django.db.models import IntegerField, Max, Q, Count
 from django.db.models.functions import Cast
 from rest_framework.exceptions import NotFound, ValidationError
 
@@ -28,3 +28,10 @@ class PeopleService:
             max_height=Max(Cast('height', IntegerField()))
         ).order_by('-max_height').first()
         return tallest_person
+    
+    @staticmethod
+    def get_gender_count():
+        return People.objects.exclude(gender__isnull=True).annotate(count=Count('gender')).values('gender')
+     
+       
+        

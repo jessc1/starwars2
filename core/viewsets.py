@@ -58,7 +58,13 @@ class PeopleViewSet(viewsets.ReadOnlyModelViewSet):
     def tallest(self, request):
         character = PeopleService.get_tallest_character()
         serializer = self.get_serializer(character)
-        return Response(serializer.data)   
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'])
+    def gender_count(self, request):
+        count = PeopleService.get_gender_count()
+        return Response(count)
+
    
 
 class FilmViewSet(viewsets.ReadOnlyModelViewSet):
