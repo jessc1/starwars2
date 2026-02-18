@@ -11,6 +11,7 @@ frameworks:  django, django restframework. database: postgresql
 * People By ID:  http://localhost:8000/api/people/id/
 * Search people http://127.0.0.1:8000/api/people/?blond
 * Get the tallest character http://127.0.0.1:8000/api/people/tallest/
+* Get the gender count http://127.0.0.1:8000/api/people/gender_count/
 * Ordering people http://127.0.0.1:8000/api/people/?ordering=name
 * Films: http://localhost:8000/api/films/ http methods: get
 * Search people ex http://127.0.0.1:8000/api/films/?6 

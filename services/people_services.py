@@ -1,11 +1,12 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
-from django.db.models import IntegerField, Max, Q, Count
+from django.db.models import Count, IntegerField, Max, Q
 from django.db.models.functions import Cast
 from rest_framework.exceptions import NotFound, ValidationError
 
 from core.models import People
 from core.serializers import PeopleSerializer
+
 
 class PeopleService:
     @staticmethod
@@ -31,7 +32,9 @@ class PeopleService:
     
     @staticmethod
     def get_gender_count():
-        return People.objects.exclude(gender__isnull=True).annotate(count=Count('gender')).values('gender')
+        return  People.objects.values('gender').annotate(count=Count('gender'))
+            
+
      
        
         

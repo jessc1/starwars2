@@ -63,9 +63,7 @@ class PeopleViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['get'])
     def gender_count(self, request):
         count = PeopleService.get_gender_count()
-        return Response(count)
-
-   
+        return Response(count)    
 
 class FilmViewSet(viewsets.ReadOnlyModelViewSet):
     """
