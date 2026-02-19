@@ -63,7 +63,12 @@ class PeopleViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['get'])
     def gender_count(self, request):
         count = PeopleService.get_gender_count()
-        return Response(count)    
+        return Response(count)
+    
+    @action(detail=False,methods=['get'])
+    def get_oldest(self, request):
+        old = PeopleService.get_oldest_character()
+        return Response(old)
 
 class FilmViewSet(viewsets.ReadOnlyModelViewSet):
     """

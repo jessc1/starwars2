@@ -33,6 +33,30 @@ class PeopleService:
     @staticmethod
     def get_gender_count():
         return  People.objects.values('gender').annotate(count=Count('gender'))
+    
+    @staticmethod
+    def get_oldest_character():
+        people = People.objects.all().values('name', 'birth_year')
+
+        def parse_birth_field(birth_str):
+            if 'BBY' in birth_str:
+                return -float(birth_str.replace('BBY', ''))
+            elif 'ABY' in birth_str:
+                return float(birth_str.replace('ABY', ''))
+            else:
+                return None
+        
+        sorted_people = sorted([p for p in people if parse_birth_field(p['birth_year']) is not None],
+            key=lambda x: parse_birth_field(x['birth_year']),
+            reverse=False)
+        if sorted_people:
+            oldest_character = sorted_people[0]
+            return f"Name:{oldest_character['name']}, Birth Year: {oldest_character['birth_year']}"
+        else:
+            return "No character was found"   
+        
+        
+
             
 
      
