@@ -58,8 +58,8 @@ class Film(models.Model):
     starships = models.URLField(max_length=1000)
     vehicles = models.URLField(max_length=1000)  
     species = models.URLField(max_length=1000)  
-    created=models.DateTimeField()
-    edited = models.DateTimeField()                   
+    created=models.DateTimeField(auto_now_add=True)
+    edited = models.DateTimeField(auto_now_add=True)                   
     url = models.URLField(max_length=1000)     
 
     def __str__(self):
@@ -80,7 +80,7 @@ class People(models.Model):
     species = models.URLField(max_length=1000,default='species')
     vehicles = models.URLField(max_length=1000, default='vehicle')
     starships = models.URLField(max_length=1000, default='starship')
-    created=models.DateTimeField()
+    created=models.DateTimeField(auto_now_add=True)
     url = models.URLField()
 
     def __str__(self):

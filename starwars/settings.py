@@ -170,3 +170,4 @@ CACHES = {
         }
     }
 }
+SWAGGER_USE_COMPAT_RENDERERS = False
