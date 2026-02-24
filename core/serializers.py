@@ -13,13 +13,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class FilmSerializer(serializers.ModelSerializer):
-    films_george_lucas = serializers.SerializerMethodField()
  
     class Meta:
         model = Film
         fields = [
             'title', 'episode_id', 'director', 
-                  'release_date', 'characters', 'films_george_lucas', 'url']
+                  'release_date', 'characters', 'url']
 
 
 

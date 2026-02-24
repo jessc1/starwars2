@@ -11,7 +11,7 @@ from core.serializers import PeopleSerializer
 class PeopleService:
     @staticmethod
     def list():
-        return People.objects.all()
+        return People.objects.prefetch_related('films')
 
     @staticmethod
     def get(user_id):

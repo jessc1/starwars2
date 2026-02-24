@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from django.core.cache import cache
 from rest_framework import status
@@ -15,12 +17,19 @@ class TestPeopleViewSet:
         client.force_authenticate(user=user)
         response = client.get(self.endpoint)
         assert response.status_code == status.HTTP_200_OK
+
+    def test_list_response_time(self, client, user):
+        client.force_authenticate(user=user)
+        start_time = time.perf_counter()
+        response = client.get(self.endpoint)
+        end_time = time.perf_counter()
+        elapsed_time = end_time - start_time
+        assert response.status_code == status.HTTP_200_OK
+        assert elapsed_time < 0.5      
     
     def test_retrieve(self, client, user, people):        
         client.force_authenticate(user=user)
-        print('people', people)
         response = client.get(self.endpoint + str(people.id) + "/")
-        print('response', response)
         assert response.data['name'] == people.name
     
     @pytest.mark.django_db
